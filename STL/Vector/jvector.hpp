@@ -56,6 +56,8 @@ namespace jj{
 			reference operator*(){ return *ptr; }
 			reverse_iterator operator++(){ return --ptr; }
 			reverse_iterator operator--(){ return ++ptr; }
+			reverse_iterator operator+(const size_type & diff){ return ptr+diff; }
+			reverse_iterator operator-(const size_type & diff){ return ptr-diff; }
 			void operator++(int){
 				T * tmp = ptr;
 				--ptr;

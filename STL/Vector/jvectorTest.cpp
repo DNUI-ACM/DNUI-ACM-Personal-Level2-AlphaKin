@@ -23,6 +23,7 @@ int main(){
 	vb.resize(10, 5);//重新分配
 	vb.push_back(66);
 	vb.erase(5);//删除第5个元素
+	
 
 	jj::jvector<int> vc(5, 3);
 
@@ -45,6 +46,10 @@ int main(){
 
 cout << endl;
 
+	cout << "范围删除vb中[1, 3)的元素" << endl;
+	vb.erase(1, 3);
+
+cout << endl;
 	cout << "迭代器遍历vb:" << endl;
 	jj::jvector<int>::iterator ps;
 	cout << "reserve:" << ' ';
@@ -86,10 +91,10 @@ cout << endl;
 	
 	cout << "反向迭代器'倒'遍历vb:" << endl;
 	cout << "reserve:" << ' ';
-	for(rp=va.rend()+1; rp!=va.rbegin(); --rp)
+	for(rp=vb.rend()+1; rp!=vb.rbegin(); --rp)
 		cout << *(rp) << ' ';
 	cout << *(rp);
-	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
+	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
 cout << endl;
 	
@@ -101,14 +106,15 @@ cout << endl;
 
 cout << endl;
 
-	jj::jvector<int>::iterator p1 = va.end();
-	jj::jvector<int>::iterator p2 = va.begin() + va.size();
-	cout << "令:p1 = va.end();\n   p2 = va.begin + va.size();" << endl;
+	jj::jvector<int>::iterator p1 = vb.end() - 1;
+	jj::jvector<int>::iterator p2 = vb.begin() + vb.size() - 1;
+	cout << "令:p1 = vb.end() - 1;\n   p2 = vb.begin + vb.size(); - 1" << endl;
 	puts(p1 == p2 ? "则p1 == p2" : "则p1 != p2");
+	cout << *(p1) << ' ' << *(p2) << endl;
 
 cout << endl;
 
-	cout << "va[p1-1] = " << *(p1-1) << endl;
+	cout << "*(p1-1) = " << *(p1-1) << endl;
 }
 
 /*
@@ -123,36 +129,40 @@ cout << endl;
 reserve: 2 3 100 
 space:   3/4
 
+范围删除vb中[1, 3)的元素
+
 迭代器遍历vb:
-reserve: 2 3 100 77 5 5 5 5 5 66 
-space:   10/20
+reserve: 2 77 5 5 5 5 
+space:   8/20
 
 ---调用swap():---
 
 迭代'倒'遍历va:
-reserve: 66 5 5 5 5 5 77 100 3 2
-space:   10/20
+reserve: 5 5 5 5 77 2
+space:   8/20
 
 迭代器遍历vb:
 reserve: 2 3 100 
 space:   3/4
 
 反向迭代器遍历va:
-reserve: 66 5 5 5 5 5 77 100 3 2 
-space:   10/20
+reserve: 5 5 5 5 77 2 
+space:   8/20
 
 反向迭代器'倒'遍历vb:
-reserve: 2 3 100 77 5 5 5 5 5 66
-space:   10/20
+reserve: 2 3 100
+space:   3/4
 
 迭代器遍历vc:
 reserve: 3 3 3 3 3 
 space:   3/4
 
-令:p1 = va.end();
-   p2 = va.begin + va.size();
+令:p1 = vb.end() - 1;
+   p2 = vb.begin + vb.size(); - 1
 则p1 == p2
+100 100
 
-va[p1-1] = 66
+*(p1-1) = 3
+
 
 */

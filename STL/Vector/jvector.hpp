@@ -163,6 +163,15 @@ namespace jj{
 			else return nullptr;
 		}
 
+		pointer erase(size_type spos, size_type epos){
+			if(spos < 0 || epos >= len) return start + spos;
+			for(int i=0, p=epos, q=spos, aim = len-epos; i<aim; ++i)
+				*(start + q++) = *(start + p++);
+			len -= epos - spos;
+			finish = start + len - epos + spos;
+			return start + spos;
+		}
+
 		pointer erase(size_type position){
 			if(position < len){
 				T * tmp = start + position;

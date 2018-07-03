@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	freopen("out", "w", stdout);
+	//freopen("out", "w", stdout);
 
 	jj::jvector<int> va;
 
@@ -55,11 +55,12 @@ cout << endl;
 	cout << endl << "---调用swap():---" << endl << endl;
 	va.swap(vb);
 
-	cout << "迭代器遍历va:" << endl;
+	cout << "迭代'倒'遍历va:" << endl;
 
 	cout << "reserve:" << ' ';
-	for(p=va.begin(); p!=va.end(); ++p)
+	for(p=va.end()-1; p!=va.begin(); --p)
 		cout << *(p) << ' ';
+	cout << *(p);
 	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
 
 cout << endl;
@@ -81,16 +82,36 @@ cout << endl;
 	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
 
 cout << endl;
+
+	
+	cout << "反向迭代器'倒'遍历vb:" << endl;
+	cout << "reserve:" << ' ';
+	for(rp=va.rend()+1; rp!=va.rbegin(); --rp)
+		cout << *(rp) << ' ';
+	cout << *(rp);
+	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
+
+cout << endl;
 	
 	cout << "迭代器遍历vc:" << endl;
 	cout << "reserve:" << ' ';
 	for(ps=vc.begin(); ps!=vc.end(); ++ps)
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
+
+cout << endl;
+
+	jj::jvector<int>::iterator p1 = va.end();
+	jj::jvector<int>::iterator p2 = va.begin() + va.size();
+	cout << "令:p1 = va.end();\n   p2 = va.begin + va.size();" << endl;
+	puts(p1 == p2 ? "则p1 == p2" : "则p1 != p2");
+
+cout << endl;
+
+	cout << "va[p1-1] = " << *(p1-1) << endl;
 }
 
 /*
-OUT PUT:
 
 下标遍历va:
 2 3 100 
@@ -108,8 +129,8 @@ space:   10/20
 
 ---调用swap():---
 
-迭代器遍历va:
-reserve: 2 3 100 77 5 5 5 5 5 66 
+迭代'倒'遍历va:
+reserve: 66 5 5 5 5 5 77 100 3 2
 space:   10/20
 
 迭代器遍历vb:
@@ -120,8 +141,18 @@ space:   3/4
 reserve: 66 5 5 5 5 5 77 100 3 2 
 space:   10/20
 
+反向迭代器'倒'遍历vb:
+reserve: 2 3 100 77 5 5 5 5 5 66
+space:   10/20
+
 迭代器遍历vc:
 reserve: 3 3 3 3 3 
 space:   3/4
+
+令:p1 = va.end();
+   p2 = va.begin + va.size();
+则p1 == p2
+
+va[p1-1] = 66
 
 */

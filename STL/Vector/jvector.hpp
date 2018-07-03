@@ -10,11 +10,11 @@ namespace jj{
 	template<class T>
 	class jvector{
 	public:
-		typedef size_t size_type;
-		typedef ptrdiff_t difference_type;
-		typedef T value_type;
-		typedef value_type* pointer;
-		typedef value_type& reference;
+		using size_type = size_t;
+		using difference_type = ptrdiff_t;
+		using value_type = T;
+		using pointer = value_type* ;
+		using reference = value_type& ;
 
 	protected:
 		T * start;
@@ -28,25 +28,42 @@ namespace jj{
 		public:
 			iterator(T * ptrr = nullptr) : ptr(ptrr) {}
 			bool operator!=(const iterator & it) const { return ptr != it.ptr; }
+			bool operator==(const iterator & it) const { return ptr == it.ptr; }
 			reference operator*(){ return *ptr; }
 			iterator operator++(){ return ++ptr; }
+			iterator operator+(const size_type & diff){ return ptr+diff; }
+			iterator operator-(const size_type & diff){ return ptr-diff; }
+			iterator operator--(){ return --ptr; }
 			void operator++(int){
 				T * tmp = ptr;
 				++ptr;
 				return tmp;
 			}
+			void operator--(int){
+				T * tmp = ptr;
+				--ptr;
+				return tmp;
+			}
 		};
+		//反向迭代器类
 		class reverse_iterator{
 		private:
 			T * ptr;
 		public:
 			reverse_iterator(T * ptrr = nullptr) : ptr(ptrr) {}
 			bool operator!=(const reverse_iterator & it) const { return ptr != it.ptr; }
+			bool operator==(const reverse_iterator & it) const { return ptr == it.ptr; }
 			reference operator*(){ return *ptr; }
 			reverse_iterator operator++(){ return --ptr; }
+			reverse_iterator operator--(){ return ++ptr; }
 			void operator++(int){
 				T * tmp = ptr;
 				--ptr;
+				return tmp;
+			}
+			void operator--(int){
+				T * tmp = ptr;
+				++ptr;
 				return tmp;
 			}
 		};

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include "jvector.h"
+#include "jvector.hpp"
 using namespace std;
 
 int main(){
@@ -57,8 +57,6 @@ cout << endl;
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
-	cout << endl << "---调用swap():---" << endl << endl;
-	va.swap(vb);
 
 	cout << "迭代'倒'遍历va:" << endl;
 
@@ -132,37 +130,33 @@ space:   3/4
 范围删除vb中[1, 3)的元素
 
 迭代器遍历vb:
-reserve: 2 77 5 5 5 5 
+reserve: 2 77 5 5 5 5 5 66 
 space:   8/20
-
----调用swap():---
-
 迭代'倒'遍历va:
-reserve: 5 5 5 5 77 2
-space:   8/20
+reserve: 100 3 2
+space:   3/4
 
 迭代器遍历vb:
-reserve: 2 3 100 
-space:   3/4
-
-反向迭代器遍历va:
-reserve: 5 5 5 5 77 2 
+reserve: 2 77 5 5 5 5 5 66 
 space:   8/20
 
-反向迭代器'倒'遍历vb:
-reserve: 2 3 100
+反向迭代器遍历va:
+reserve: 100 3 2 
 space:   3/4
+
+反向迭代器'倒'遍历vb:
+reserve: 97 0 2 77 5 5 5 5 5 66
+space:   8/20
 
 迭代器遍历vc:
 reserve: 3 3 3 3 3 
-space:   3/4
+space:   8/20
 
 令:p1 = vb.end() - 1;
    p2 = vb.begin + vb.size(); - 1
 则p1 == p2
-100 100
+66 66
 
-*(p1-1) = 3
-
+*(p1-1) = 5
 
 */

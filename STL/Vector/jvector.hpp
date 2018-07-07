@@ -18,13 +18,13 @@ namespace jj{
 		using reference 		= value_type& ;
 
 	private:
-		T * base;
-		T * end_of_storage;
+		pointear base;
+		pointer end_of_storage;
 	public:
 		//迭代器类
 		class iterator{
 		private:
-			T * ptr;
+			pointer ptr;
 		public:
 			iterator(T * ptrr = nullptr) : ptr(ptrr) {}
 			bool operator!=(const iterator & it) const { return ptr != it.ptr; }
@@ -48,7 +48,7 @@ namespace jj{
 		//反向迭代器类
 		class reverse_iterator{
 		private:
-			T * ptr;
+			pointer ptr;
 		public:
 			reverse_iterator(T * ptrr = nullptr) : ptr(ptrr) {}
 			bool operator!=(const reverse_iterator & it) const { return ptr != it.ptr; }
@@ -148,7 +148,7 @@ namespace jj{
 			--len;
 		}
 		
-		pointer erase(pointer position){
+		iterator erase(pointer position){
 			if(position < base + len){
 				pointer tmp = position;
 				while(position != end()){
@@ -156,20 +156,20 @@ namespace jj{
 					++position;
 				}
 				--len;
-				return tmp;
+				return iterator(tmp);
 			}
-			else return nullptr;
+			else return iterator(nullptr);
 		}
 
-		pointer erase(size_type spos, size_type epos){
-			if(spos < 0 || epos >= len) return base + spos;
+		iterator erase(size_type spos, size_type epos){
+			if(spos < 0 || epos >= len) return iterator(base + spos);
 			for(int i=0, p=epos, q=spos, aim = len-epos; i<aim; ++i)
 				*(base + q++) = *(base + p++);
 			len -= epos - spos;
-			return base + spos;
+			return iterator(base + spos);
 		}
 
-		pointer erase(size_type position){
+		iterator erase(size_type position){
 			if(position < len){
 				T * tmp = base + position;
 				while(position < len){
@@ -177,9 +177,9 @@ namespace jj{
 					++position;
 				}
 				--len;
-				return tmp;
+				return iterator(tmp);
 			}
-			else return nullptr;
+			else return iterator(nullptr);
 		}
 		
 		// void swap(jvector & obj){

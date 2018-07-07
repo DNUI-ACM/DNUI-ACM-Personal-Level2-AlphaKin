@@ -190,13 +190,23 @@ namespace jj{
 		// 	tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
 		// }
 
+		void reserve(size_type length){
+			if(length < len) return;
+			pointer new_space = new value_type[length];
+			memmove(new_space, base, sizeof(T) * length);
+			delete [] base;
+			base = new_space;
+			cap = length;
+			end_of_storage = base + length;
+		}
+
 		void resize(size_type new_size, const T & x){
 			pointer new_space;
 			if(new_size != cap){
 				new_space = new value_type[new_size];
 				memmove(new_space, base, sizeof(T) * new_size);
 			} 
-			delete base;
+			delete [] base;
 			base = new_space;
 			pointer tmp = base + (len < new_size ? len : new_size);
 			len = cap = new_size;

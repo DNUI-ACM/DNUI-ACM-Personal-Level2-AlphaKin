@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	//freopen("out", "w", stdout);
+	freopen("out", "w", stdout);
 
 	jj::jvector<int> va;
 
@@ -26,6 +26,7 @@ int main(){
 	
 
 	jj::jvector<int> vc(5, 3);
+
 
 
 	cout << "下标遍历va:" << endl;
@@ -54,6 +55,8 @@ cout << endl;
 
 	cout << "范围删除vb中[1, 3)的元素" << endl;
 	vb.erase(1, 3);
+	// cout << *(vb.begin()+1) << ' ' << *(vb.begin()+3) << endl;
+	// vb.erase(vb.begin()+1, vb.begin()+3);
 
 cout << endl;
 	cout << "迭代器遍历vb:" << endl;
@@ -64,7 +67,7 @@ cout << endl;
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
 
-	cout << "迭代'倒'遍历va:" << endl;
+	cout << "迭代器'倒'遍历va:" << endl;
 
 	cout << "display:" << ' ';
 	for(p=va.end()-1; p!=va.begin(); --p)
@@ -139,7 +142,7 @@ space:   3/8
 迭代器遍历vb:
 display: 2 77 5 5 5 5 5 66 
 space:   8/20
-迭代'倒'遍历va:
+迭代器'倒'遍历va:
 display: 100 3 2
 space:   3/8
 
@@ -165,5 +168,6 @@ space:   8/20
 66 66
 
 *(p1-1) = 5
+
 
 */

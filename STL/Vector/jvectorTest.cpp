@@ -37,9 +37,15 @@ int main(){
 		cout << vb[i] << ' ';
 	cout << endl << endl;
 
+
+cout << "预留va的8个空间" << endl;
+	va.reserve(8);
+cout << endl;
+
+
 	cout << "迭代器遍历va:" << endl;
 	jj::jvector<int>::iterator p;//迭代器
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(p=va.begin(); p!=va.end(); ++p)
 		cout << *(p) << ' ';
 	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
@@ -52,7 +58,7 @@ cout << endl;
 cout << endl;
 	cout << "迭代器遍历vb:" << endl;
 	jj::jvector<int>::iterator ps;
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(ps=vb.begin(); ps!=vb.end(); ++ps)
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
@@ -60,7 +66,7 @@ cout << endl;
 
 	cout << "迭代'倒'遍历va:" << endl;
 
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(p=va.end()-1; p!=va.begin(); --p)
 		cout << *(p) << ' ';
 	cout << *(p);
@@ -69,7 +75,7 @@ cout << endl;
 cout << endl;
 
 	cout << "迭代器遍历vb:" << endl;
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(ps=vb.begin(); ps!=vb.end(); ++ps)
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
@@ -79,7 +85,7 @@ cout << endl;
 	
 	jj::jvector<int>::reverse_iterator rp;//反向迭代器
 	cout << "反向迭代器遍历va:" << endl;
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(rp=va.rbegin(); rp!=va.rend(); ++rp)
 		cout << *(rp) << ' ';
 	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
@@ -88,7 +94,7 @@ cout << endl;
 
 	
 	cout << "反向迭代器'倒'遍历vb:" << endl;
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(rp=vb.rend()+1; rp!=vb.rbegin(); --rp)
 		cout << *(rp) << ' ';
 	cout << *(rp);
@@ -97,7 +103,7 @@ cout << endl;
 cout << endl;
 	
 	cout << "迭代器遍历vc:" << endl;
-	cout << "reserve:" << ' ';
+	cout << "display:" << ' ';
 	for(ps=vc.begin(); ps!=vc.end(); ++ps)
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
@@ -116,40 +122,41 @@ cout << endl;
 }
 
 /*
-
 下标遍历va:
 2 3 100 
 
 下标遍历vb:
 2 3 100 77 5 5 5 5 5 66 
 
+预留va的8个空间
+
 迭代器遍历va:
-reserve: 2 3 100 
-space:   3/4
+display: 2 3 100 
+space:   3/8
 
 范围删除vb中[1, 3)的元素
 
 迭代器遍历vb:
-reserve: 2 77 5 5 5 5 5 66 
+display: 2 77 5 5 5 5 5 66 
 space:   8/20
 迭代'倒'遍历va:
-reserve: 100 3 2
-space:   3/4
+display: 100 3 2
+space:   3/8
 
 迭代器遍历vb:
-reserve: 2 77 5 5 5 5 5 66 
+display: 2 77 5 5 5 5 5 66 
 space:   8/20
 
 反向迭代器遍历va:
-reserve: 100 3 2 
-space:   3/4
+display: 100 3 2 
+space:   3/8
 
 反向迭代器'倒'遍历vb:
-reserve: 97 0 2 77 5 5 5 5 5 66
+display: 97 0 2 77 5 5 5 5 5 66
 space:   8/20
 
 迭代器遍历vc:
-reserve: 3 3 3 3 3 
+display: 3 3 3 3 3 
 space:   8/20
 
 令:p1 = vb.end() - 1;

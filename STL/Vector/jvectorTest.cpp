@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	//freopen("out", "w", stdout);
+	freopen("out", "w", stdout);
 
 	jj::jvector<int> va;
 
@@ -65,6 +65,11 @@ cout << endl;
 		cout << *(ps) << ' ';
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
+cout << endl;
+
+	cout << "删除va第2个元素" << endl;
+	
+	va.erase(va.begin() + 1);
 
 cout << endl;
 	cout << "迭代器'倒'遍历va:" << endl;
@@ -142,13 +147,15 @@ space:   8/13
 display: 2 5 1 100 77 5 5 66 
 space:   8/20
 
+删除va第2个元素
+
 迭代器'倒'遍历va:
-display: 100 6 1 5 4 3 2 0
-space:   8/13
+display: 100 6 1 5 4 3 0
+space:   7/13
 
 反向迭代器遍历va:
-display: 100 6 1 5 4 3 2 0 
-space:   8/13
+display: 100 6 1 5 4 3 0 
+space:   7/13
 
 vb调用shrink_to_fit():
 

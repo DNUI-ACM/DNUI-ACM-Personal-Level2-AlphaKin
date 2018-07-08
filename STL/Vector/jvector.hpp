@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <cstring>
+#include <algorithm>
 #include <cstdio>
 
 namespace jj{
@@ -18,7 +19,7 @@ namespace jj{
 		using reference 		= value_type& ;
 
 	private:
-		pointear base;
+		pointer base;
 		pointer end_of_storage;
 	public:
 		//迭代器类
@@ -129,7 +130,7 @@ namespace jj{
 		
 		void clear(){ while(size()) pop_back(); }
 		
-		reference operator[](size_type position){
+		reference operator[](const size_type position){
 			if(position < len) return *(base + position);
 		}
 
@@ -190,8 +191,28 @@ namespace jj{
 		// 	tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
 		// }
 
+		iterator insert(iterator pos, const T& value){
+			pointer new_base = new value_type[cap+1];
+			for(int i=0, k=0; i<len; ++i){
+				if(pos == base + i) *(new_base + k++) = value;
+				*(new_base + k++) = *(base + i);
+			}
+			base = new_base;
+			++cap, ++len;
+			end_of_storage = base + cap;
+		}
+
+		void shrink_to_fit(){
+			pointer new_space = new value_type[len];
+			memmove(new_space, base, sizeof(T) * len);
+			delete [] base;
+			base = new_space;
+			cap = len;
+			end_of_storage = base + cap;
+		}
+
 		void reserve(size_type length){
-			if(length < len) return;
+			if(length <= len) return;
 			pointer new_space = new value_type[length];
 			memmove(new_space, base, sizeof(T) * length);
 			delete [] base;

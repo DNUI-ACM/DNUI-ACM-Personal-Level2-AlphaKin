@@ -35,12 +35,12 @@ namespace jj{
 			iterator operator+(const size_type & diff){ return ptr+diff; }
 			iterator operator-(const size_type & diff){ return ptr-diff; }
 			iterator operator--(){ return --ptr; }
-			void operator++(int){
+			iterator operator++(int){
 				T * tmp = ptr;
 				++ptr;
 				return tmp;
 			}
-			void operator--(int){
+			iterator operator--(int){
 				T * tmp = ptr;
 				--ptr;
 				return tmp;
@@ -59,12 +59,12 @@ namespace jj{
 			reverse_iterator operator--(){ return ++ptr; }
 			reverse_iterator operator+(const size_type & diff){ return ptr-diff; }
 			reverse_iterator operator-(const size_type & diff){ return ptr+diff; }
-			void operator++(int){
+			reverse_iterator operator++(int){
 				T * tmp = ptr;
 				--ptr;
 				return tmp;
 			}
-			void operator--(int){
+			reverse_iterator operator--(int){
 				T * tmp = ptr;
 				++ptr;
 				return tmp;
@@ -149,17 +149,14 @@ namespace jj{
 			--len;
 		}
 		
-		iterator erase(pointer position){
-			if(position < base + len){
-				pointer tmp = position;
-				while(position != end()){
-					*position = *(position + 1);
-					++position;
-				}
-				--len;
-				return iterator(tmp);
+		iterator erase(iterator position){
+			iterator tmp = position;
+			while(position != end()){
+				*position = *(position + 1);
+				++position;
 			}
-			else return iterator(nullptr);
+			--len;
+			return iterator(tmp);
 		}
 
 		iterator erase(size_type spos, size_type epos){
@@ -183,13 +180,13 @@ namespace jj{
 			else return iterator(nullptr);
 		}
 		
-		// void swap(jvector & obj){
-		// 	pointer tmpit = obj.base; obj.base = base; base = tmpit;
-		// 	tmpit = obj.finish; obj.finish = finish; finish = tmpit;
-		// 	tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
-		// 	size_type tmp = len; len = obj.size(); obj.setlen(tmp);
-		// 	tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
-		// }
+		void swap(jvector & obj){
+			pointer tmpit = obj.base; obj.base = base; base = tmpit;
+			tmpit = obj.finish; obj.finish = finish; finish = tmpit;
+			tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
+			size_type tmp = len; len = obj.size(); obj.setlen(tmp);
+			tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
+		}
 
 		iterator insert(iterator pos, const T& value){
 			pointer new_base = new value_type[cap+1];

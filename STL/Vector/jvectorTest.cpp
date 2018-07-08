@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	freopen("out", "w", stdout);
+	//freopen("out", "w", stdout);
 
 	jj::jvector<int> va;
 
@@ -14,16 +14,14 @@ int main(){
 	va.push_back(5);
 	va.push_back(1);
 	va.push_back(6);
-	va.resize(2, 2);//重新分配
+	va.resize(6, 2);//重新分配
 	va.push_back(100);
-
 
 	jj::jvector<int> vb(va);//拷贝构造
 	vb.push_back(77);
 	vb.resize(10, 5);//重新分配
 	vb.push_back(66);
 	vb.erase(5);//删除第5个元素
-	
 
 	jj::jvector<int> vc(5, 3);
 
@@ -39,13 +37,16 @@ int main(){
 	cout << endl << endl;
 
 
-cout << "预留va的8个空间" << endl;
-	va.reserve(8);
+cout << "预留va的12个空间" << endl;
+	va.reserve(12);
 cout << endl;
 
+cout << "va 在va.begin()处插入0" << endl;
+cout << endl;
 
 	cout << "迭代器遍历va:" << endl;
-	jj::jvector<int>::iterator p;//迭代器
+	jj::jvector<int>::iterator p = va.begin();//迭代器
+	va.insert(p, 0);
 	cout << "display:" << ' ';
 	for(p=va.begin(); p!=va.end(); ++p)
 		cout << *(p) << ' ';
@@ -55,8 +56,6 @@ cout << endl;
 
 	cout << "范围删除vb中[1, 3)的元素" << endl;
 	vb.erase(1, 3);
-	// cout << *(vb.begin()+1) << ' ' << *(vb.begin()+3) << endl;
-	// vb.erase(vb.begin()+1, vb.begin()+3);
 
 cout << endl;
 	cout << "迭代器遍历vb:" << endl;
@@ -67,6 +66,7 @@ cout << endl;
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
 
+cout << endl;
 	cout << "迭代器'倒'遍历va:" << endl;
 
 	cout << "display:" << ' ';
@@ -74,14 +74,6 @@ cout << endl;
 		cout << *(p) << ' ';
 	cout << *(p);
 	cout << endl << "space:   " << va.size() << '/' <<  va.capacity() << endl;
-
-cout << endl;
-
-	cout << "迭代器遍历vb:" << endl;
-	cout << "display:" << ' ';
-	for(ps=vb.begin(); ps!=vb.end(); ++ps)
-		cout << *(ps) << ' ';
-	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
 
 cout << endl;
 
@@ -95,10 +87,13 @@ cout << endl;
 
 cout << endl;
 
+	cout << "vb调用shrink_to_fit():" << endl;
+	vb.shrink_to_fit();
+	cout << endl;
 	
 	cout << "反向迭代器'倒'遍历vb:" << endl;
 	cout << "display:" << ' ';
-	for(rp=vb.rend()+1; rp!=vb.rbegin(); --rp)
+	for(rp=vb.rend()-1; rp!=vb.rbegin(); --rp)
 		cout << *(rp) << ' ';
 	cout << *(rp);
 	cout << endl << "space:   " << vb.size() << '/' <<  vb.capacity() << endl;
@@ -125,42 +120,45 @@ cout << endl;
 }
 
 /*
+#OUT PUT
+
 下标遍历va:
-2 3 100 
+2 3 4 5 1 6 100 
 
 下标遍历vb:
-2 3 100 77 5 5 5 5 5 66 
+2 3 4 5 1 100 77 5 5 66 
 
-预留va的8个空间
+预留va的12个空间
+
+va 在va.begin()处插入0
 
 迭代器遍历va:
-display: 2 3 100 
-space:   3/8
+display: 0 2 3 4 5 1 6 100 
+space:   8/13
 
 范围删除vb中[1, 3)的元素
 
 迭代器遍历vb:
-display: 2 77 5 5 5 5 5 66 
+display: 2 5 1 100 77 5 5 66 
 space:   8/20
-迭代器'倒'遍历va:
-display: 100 3 2
-space:   3/8
 
-迭代器遍历vb:
-display: 2 77 5 5 5 5 5 66 
-space:   8/20
+迭代器'倒'遍历va:
+display: 100 6 1 5 4 3 2 0
+space:   8/13
 
 反向迭代器遍历va:
-display: 100 3 2 
-space:   3/8
+display: 100 6 1 5 4 3 2 0 
+space:   8/13
+
+vb调用shrink_to_fit():
 
 反向迭代器'倒'遍历vb:
-display: 97 0 2 77 5 5 5 5 5 66
-space:   8/20
+display: 2 5 1 100 77 5 5 66
+space:   8/8
 
 迭代器遍历vc:
 display: 3 3 3 3 3 
-space:   8/20
+space:   8/8
 
 令:p1 = vb.end() - 1;
    p2 = vb.begin + vb.size(); - 1

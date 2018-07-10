@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	freopen("out", "w", stdout);
+	//freopen("out", "w", stdout);
 
 	jj::jvector<int> va;
 
@@ -24,7 +24,8 @@ int main(){
 	vb.erase(5);//删除第5个元素
 
 	jj::jvector<int> vc(5, 3);
-
+	
+	jj::jvector<int> cc = {1,2,3,4,5,6};
 
 
 	cout << "下标遍历va:" << endl;
@@ -35,7 +36,11 @@ int main(){
 	for(int i=0; i<vb.size(); ++i)
 		cout << vb[i] << ' ';
 	cout << endl << endl;
+	cout << "cc李彪初始化，下标遍历cc:" << endl;
+	for(int i=0; i<cc.size(); ++i)
+		cout << cc[i] << ' ';
 
+cout << endl << endl;
 
 cout << "预留va的12个空间" << endl;
 	va.reserve(12);
@@ -126,12 +131,14 @@ cout << endl;
 
 /*
 #OUT PUT
-
 下标遍历va:
 2 3 4 5 1 6 100 
 
 下标遍历vb:
 2 3 4 5 1 100 77 5 5 66 
+
+cc李彪初始化，下标遍历cc:
+1 2 3 4 5 6 
 
 预留va的12个空间
 
@@ -173,6 +180,5 @@ space:   8/8
 66 66
 
 *(p1-1) = 5
-
-
+[Finished in 0.4s]
 */

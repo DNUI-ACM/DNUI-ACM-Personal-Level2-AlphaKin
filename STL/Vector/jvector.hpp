@@ -105,6 +105,14 @@ namespace jj{
 			end_of_storage = base + cap;
 		}
 
+		jvector(const std::initializer_list<T> li){
+			len = 0, cap = li.size();
+			base = new value_type[cap];
+			for(auto i : li)
+				*(base + len++) = i;
+			end_of_storage = base + cap;
+		}
+
 		~jvector(){ delete [] base; }
 
 		void setlen(const int l){ len = l; }
@@ -130,9 +138,7 @@ namespace jj{
 		
 		void clear(){ while(size()) pop_back(); }
 		
-		reference operator[](const size_type position){
-			if(position < len) return *(base + position);
-		}
+		reference operator[](const size_type position){ return *(base + position); }
 
 		reference at(const size_type position){
 			if(position < len) return *(base + position);
@@ -180,23 +186,28 @@ namespace jj{
 			else return iterator(nullptr);
 		}
 		
-// 		void swap(jvector & obj){
-// 			pointer tmpit = obj.base; obj.base = base; base = tmpit;
-// 			tmpit = obj.finish; obj.finish = finish; finish = tmpit;
-// 			tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
-// 			size_type tmp = len; len = obj.size(); obj.setlen(tmp);
-// 			tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
-// 		}
+		// void swap(jvector & obj){
+		// 	pointer tmpit = obj.base; obj.base = base; base = tmpit;
+		// 	tmpit = obj.finish; obj.finish = finish; finish = tmpit;
+		// 	tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
+		// 	size_type tmp = len; len = obj.size(); obj.setlen(tmp);
+		// 	tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
+		// }
 
 		iterator insert(iterator pos, const T& value){
 			pointer new_base = new value_type[cap+1];
+			int rec;
 			for(int i=0, k=0; i<len; ++i){
-				if(pos == base + i) *(new_base + k++) = value;
+				if(pos == base + i){
+					*(new_base + k++) = value;
+					rec = i;
+				}
 				*(new_base + k++) = *(base + i);
 			}
 			base = new_base;
 			++cap, ++len;
 			end_of_storage = base + cap;
+			return iterator(base + rec);
 		}
 
 		void shrink_to_fit(){

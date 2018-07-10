@@ -180,13 +180,13 @@ namespace jj{
 			else return iterator(nullptr);
 		}
 		
-		void swap(jvector & obj){
-			pointer tmpit = obj.base; obj.base = base; base = tmpit;
-			tmpit = obj.finish; obj.finish = finish; finish = tmpit;
-			tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
-			size_type tmp = len; len = obj.size(); obj.setlen(tmp);
-			tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
-		}
+// 		void swap(jvector & obj){
+// 			pointer tmpit = obj.base; obj.base = base; base = tmpit;
+// 			tmpit = obj.finish; obj.finish = finish; finish = tmpit;
+// 			tmpit = obj.end_of_storage; obj.end_of_storage = end_of_storage; end_of_storage = end_of_storage;
+// 			size_type tmp = len; len = obj.size(); obj.setlen(tmp);
+// 			tmp = cap; cap = obj.capacity(); obj.setcap(tmp);
+// 		}
 
 		iterator insert(iterator pos, const T& value){
 			pointer new_base = new value_type[cap+1];
